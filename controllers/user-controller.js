@@ -28,7 +28,7 @@ const userController = {
   //Create a new User
   postNewUser: async function ({ body }, res) {
     try {
-      const newUser = await User.create({ body });
+      const newUser = await User.create(body);
       res.json(newUser);
     } catch (err) {
       console.error(err);
@@ -79,7 +79,7 @@ const userController = {
     try {
       const newFriend = await User.findByIdAndUpdate(
         { _id: params.userId },
-        { $push: { friends: { friendId: params.friendId } } },
+        { $push: { friends: params.friendId } },
         { new: true }
       );
       if (!newFriend) {
@@ -95,7 +95,7 @@ const userController = {
     try {
       const deletedFriend = await User.findByIdAndUpdate(
         { _id: params.userId },
-        { $pull: { friends: { friendId: params.friendId } } },
+        { $pull: { friends: params.friendId } },
         { new: true }
       );
       if (!deletedFriend) {

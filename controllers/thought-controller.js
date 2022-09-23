@@ -1,4 +1,4 @@
-const { Thought } = require("../models");
+const { Thought, User } = require("../models");
 
 const thoughtControllers = {
   getAllThoughts: async function (req, res) {
@@ -25,11 +25,11 @@ const thoughtControllers = {
   },
   postNewThought: async function ({ body }, res) {
     try {
-      const newThought = await Thought.create({ body });
+      const newThought = await Thought.create(body);
 
-      const userThought = await User.find(
+      const userThought = await User.findOneAndUpdate(
         { username: body.username },
-        { $push: { thoughts: { thoughtId: newThought._id } } }
+        { $push: { thoughts: newThought._id } }
       );
       if (!userThought) {
         res.status(404).json({ message: "No user found with that username!" });
