@@ -35,6 +35,7 @@ const userController = {
       res.json(400).json(err);
     }
   },
+  //updates a user
   updateUser: async function ({ params, body }, res) {
     try {
       const updatedUser = await User.findByIdAndUpdate(
@@ -52,6 +53,7 @@ const userController = {
       res.status(400).json(err);
     }
   },
+  //deletes user and deletes their posted thoughts
   deleteUser: async function ({ params }, res) {
     try {
       const user = await User.findById({
@@ -75,6 +77,7 @@ const userController = {
       res.status(400).json(err);
     }
   },
+  //posts a new friend to user model under friends array
   postNewFriend: async function ({ params }, res) {
     try {
       const newFriend = await User.findByIdAndUpdate(
@@ -91,6 +94,7 @@ const userController = {
       res.status(400).json(err);
     }
   },
+  //deletes a friend by removing their friend id from friends array in user model
   deleteFriend: async function ({ params }, res) {
     try {
       const deletedFriend = await User.findByIdAndUpdate(

@@ -1,6 +1,7 @@
 const { Thought, User } = require("../models");
 
 const thoughtControllers = {
+  //gets all the thoughts
   getAllThoughts: async function (req, res) {
     try {
       const allThoughts = await Thought.find({});
@@ -10,6 +11,7 @@ const thoughtControllers = {
       res.status(400).json(err);
     }
   },
+  //gets single thought by id
   getThoughtById: async function ({ params }, res) {
     try {
       const oneThought = await Thought.findById({ _id: params.id });
@@ -23,6 +25,7 @@ const thoughtControllers = {
       res.status(400).json(err);
     }
   },
+  //posts a new thought and adds the id to the user's thought array
   postNewThought: async function ({ body }, res) {
     try {
       const newThought = await Thought.create(body);
@@ -40,6 +43,7 @@ const thoughtControllers = {
       res.status(400).json(err);
     }
   },
+  //updates the thought
   updateThought: async function ({ params, body }, res) {
     try {
       const updatedThought = await Thought.findByIdAndUpdate(
@@ -57,6 +61,7 @@ const thoughtControllers = {
       res.status(400).json(err);
     }
   },
+  //deletes the thought
   deleteThought: async function ({ params }, res) {
     try {
       const deletedThought = await Thought.findByIdAndDelete({
@@ -72,6 +77,7 @@ const thoughtControllers = {
       res.status(400).json(err);
     }
   },
+  //posts reaction and adds the id to the appropriate thought
   postReaction: async function ({ params, body }, res) {
     try {
       const newReaction = await Thought.findByIdAndUpdate(
@@ -89,6 +95,7 @@ const thoughtControllers = {
       res.status(400).json(err);
     }
   },
+  //deletes reaction and removes the id from the according thought
   deleteReaction: async function ({ params }, res) {
     try {
       const deletedReaction = await Thought.findByIdAndUpdate(
